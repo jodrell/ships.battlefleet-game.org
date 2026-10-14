@@ -83,7 +83,7 @@
 </main>
 
 <footer>
-  <div style="text-align:center;font-style:italic;white-space:nowrap">
+  <div style="text-align:center;font-style:italic">
     <a href="{{ card }}">Printable</a>
     &middot;
     <a href="../">Index</a>
