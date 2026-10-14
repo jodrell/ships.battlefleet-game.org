@@ -22,16 +22,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: build
-        run: |
-          apt -qqq update
-          apt -qqq install nodejs zip gh
-          cpanm -qn Data::Mirror LWP::Protocol::https HTML5::DOM Image::Size Lingua::EN::Titlecase Template::Liquid File::Copy::Recursive
+      - run: apt -qqq update
 
-          ./bfgdata.pl
+      - run: apt -qqq install nodejs zip gh
 
-          zip -r archive.zip _site
-          mv archive.zip _site
+      - run: cpanm -qn Data::Mirror LWP::Protocol::https HTML5::DOM Image::Size Lingua::EN::Titlecase Template::Liquid File::Copy::Recursive
+
+      - run: ./bfgdata.pl
+
+      - run: zip -r archive.zip _site
+
+      - run: mv archive.zip _site
 
       - uses: actions/configure-pages@v6
 
