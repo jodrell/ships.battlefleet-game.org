@@ -18,7 +18,43 @@ use List::Util qw(max);
 use Pod::Usage;
 use POSIX;
 use Template::Liquid;
+use vars qw(@TYPES %TYPENAMES %ORDER);
 use common::sense;
+
+@TYPES = qw(Battleship Grand_Cruiser Cruiser Escort Defence Ground);
+
+%TYPENAMES = (
+    Battleship      => q{Battleships},
+    Grand_Cruiser   => q{Grand Cruisers},
+    Cruiser         => q{Cruisers},
+    Escort          => q{Escorts},
+    Defence         => q{Defences},
+    Ground          => q{Ground Bases},
+);
+
+#
+# this is the order in which the fleets will be listed
+#
+%ORDER = (
+    q{Imperial Navy}        => 1,
+    q{Space Marines}        => 2,
+    q{Adeptus Mechanicus}   => 3,
+    q{Inquisition}          => 4,
+    q{Rogue Traders}        => 5,
+    q{Chaos}                => 6,
+    q{Eldar}                => 7,
+    q{Dark Eldar}           => 8,
+    q{Orks}                 => 9,
+    q{Necrons}              => 10,
+    q{Tyranids}             => 11,
+    q{Tau}                  => 12,
+    q{Demiurg}              => 13,
+    q{Kroot}                => 14,
+    q{Nicassar}             => 15,
+    q{High Orbit Defences}  => 16,
+    q{Low Orbit Defences}   => 17,
+    q{Additional Vessels}   => 18,
+);
 
 my ($dir, $help);
 pod2usage(1) unless(GetOptions(
@@ -292,20 +328,14 @@ sub bullets2li {
 # generate the site index.
 #
 sub generate_index {
+
     my $fleets = {};
     foreach my $ship (values(%{$data->{ships}})) {
         if (!exists($fleets->{$ship->{fl}})) {
             $fleets->{$ship->{fl}} = {
                 name    => $tc->title($ship->{fl}),
                 slug    => get_slug($ship->{fl}),
-                ships   => {
-                    Defence         => [],
-                    Escort          => [],
-                    Cruiser         => [],
-                    Battleship      => [],
-                    Ground          => [],
-                    Grand_Cruiser   => [],
-                },
+                ships   => { map { $_ => [] } @TYPES},
             }
         }
 
@@ -317,41 +347,23 @@ sub generate_index {
         });
     }
 
-    #
-    # this is the order in which the fleets will be listed
-    #
-    my %order = (
-        q{Imperial Navy}        => 1,
-        q{Space Marines}        => 2,
-        q{Adeptus Mechanicus}   => 3,
-        q{Inquisition}          => 4,
-        q{Rogue Traders}        => 5,
-        q{Chaos}                => 6,
-        q{Eldar}                => 7,
-        q{Dark Eldar}           => 8,
-        q{Orks}                 => 9,
-        q{Necrons}              => 10,
-        q{Tyranids}             => 11,
-        q{Tau}                  => 12,
-        q{Demiurg}              => 13,
-        q{Kroot}                => 14,
-        q{Nicassar}             => 15,
-        q{High Orbit Defences}  => 16,
-        q{Low Orbit Defences}   => 17,
-        q{Additional Vessels}   => 18,
-    );
+    foreach my $fleet (keys(%{$fleets})) {
+        foreach my $type (@TYPES) {
+            my $section = {
+                type => $type,
+                name => $TYPENAMES{$type},
+                ships => [ sort { $a->{name} cmp $b->{name} } @{$fleets->{$fleet}->{ships}->{$type}} ],
+            };
 
-    foreach my $fleet (sort { $order{$fleets->{$a}->{name}} <=> $order{$fleets->{$b}->{name}} } keys(%{$fleets})) {
-        foreach my $type (keys(%{$fleets->{$fleet}->{ships}})) {
-            $fleets->{$fleet}->{counts}->{$type}    = scalar(@{$fleets->{$fleet}->{ships}->{$type}});
-            $fleets->{$fleet}->{ships}->{$type}     = [ sort { $a->{name} cmp $b->{name} } @{$fleets->{$fleet}->{ships}->{$type}} ];
+            $section->{count} = scalar(@{$section->{ships}});
+            push(@{$fleets->{$fleet}->{sections}}, $section);
         }
     }
 
     write_file(
         File::Spec->catfile($dir, q{index.html}),
         $i_tpl->render(
-            fleets  => [sort { $order{$a->{name}} <=> $order{$b->{name}} } values(%{$fleets})],
+            fleets  => [sort { $ORDER{$a->{name}} <=> $ORDER{$b->{name}} } values(%{$fleets})],
         )
     );
 }
