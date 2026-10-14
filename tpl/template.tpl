@@ -82,17 +82,15 @@
   {% endif %}
 </main>
 
-<footer>
-  <div style="text-align:center;font-style:italic">
-    <a href="{{ card }}">Printable</a>
-    &middot;
-    <a href="../">Index</a>
-    &middot;
-    <a href="https://github.com/jodrell/ships.battlefleet-game.org">GitHub</a>
-    &middot;
-    Brought to you by <a href="https://jodrell.org">𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤</a>
-  </div>
-</footer>
+<footer><span>
+  <a href="{{ card }}">Printable</a>
+  &middot;
+  <a href="../">Index</a>
+  &middot;
+  <a href="https://github.com/jodrell/ships.battlefleet-game.org">GitHub</a>
+  &middot;
+  Brought to you by <a href="https://jodrell.org">𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤</a>
+</span></footer>
 
 <script src="//analytics.tau.uk.com"></script>
 </body>

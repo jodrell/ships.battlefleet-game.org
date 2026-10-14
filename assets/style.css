@@ -264,8 +264,16 @@ a,a:link,a:visited {
 
 footer {
   height:2em;
-  padding:0.5em;
+  padding:0;
   position: sticky;
   bottom: 0;
   background-color: var(--background-color);
+  text-align:center;
+  font-style:italic;
+  vertical-align: middle;
+  line-height:2em;
+}
+
+footer div {
+  margin: 1em 1em 0 1em;
 }
