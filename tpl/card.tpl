@@ -131,11 +131,11 @@
       </div>
     {% endif %}
 
-</div>
-<div style="margin-top:1em;text-align:center;font-style:italic;color:silver">
-	Printed from https://ships.battlefleet-game.org &middot;
-	Brought to you by <a style="color:silver;text-decoration:none" href="https://jodrell.org">𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤</a>
-</div>
-<script src="//analytics.tau.uk.com"></script>
+    <div style="margin-top:1em;text-align:center;font-style:italic;color:silver;font-size:x-small">
+    	Printed from https://ships.battlefleet-game.org &middot;
+    	Brought to you by 𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤
+    </div>
+  </div>
+  <script src="//analytics.tau.uk.com"></script>
 </body>
 </html>
