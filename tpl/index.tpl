@@ -11,7 +11,8 @@
 <body>
 <main>
   <header>
-    <h1>Battlefleet Gothic Ship Profiles</h1>
+    <img src="assets/Battlefleet_Gothic_Logo_01.png" alt="BATTLEFLEET GOTHIC" style="display:block;max-width:33%;max-heigth:2em;margin:0 auto">
+    <h1 style="text-align:center">Battlefleet Gothic Ship Profiles</h1>
   </header>
   <aside>
     <p>This site contains mobile-friendly HTML profile pages for all the ships in
