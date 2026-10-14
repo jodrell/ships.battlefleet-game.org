@@ -256,6 +256,8 @@ a,a:link,a:visited {
 }
 
 .link-icon {
+  width:1em;
+  height:1em;
   filter: invert(var(--icon-link-invert-ratio));
 }
 
