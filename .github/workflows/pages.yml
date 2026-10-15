@@ -28,6 +28,8 @@ jobs:
 
       - run: cpanm -qn Data::Mirror LWP::Protocol::https HTML5::DOM Image::Size Lingua::EN::Titlecase Template::Liquid File::Copy::Recursive
 
+      - run: cp -Rvp images _site
+
       - run: ./bfgdata.pl
 
       - run: zip -r archive.zip _site

@@ -219,14 +219,15 @@ sub copy_assets {
 sub generate_image {
     my $ship = shift;
 
+    my $file = filename($dir, $ship, q{png});
+    return if (-e $file);
+
     my @images = sort(bsd_glob(File::Spec->catfile(dirname(__FILE__), q{src}, sprintf(q{image-%03u-*.png}, $ship->{pg}))));
 
     if (scalar(@images) < 3) {
         printf(STDERR qq{WARNING: found %u images on p%s for '%s' for %s (%s), need 3\n}, scalar(@images), $ship->{pg}, $tc->title($ship->{nm}), $tc->title($ship->{fl}));
         return;
     }
-
-    my $file = filename($dir, $ship, q{png});
 
     make_path(dirname($file)) unless (-e dirname($file));
 

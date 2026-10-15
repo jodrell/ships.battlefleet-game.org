@@ -8,10 +8,12 @@ PATH="${PATH}:${DIR}"
 pushd "$DIR" > /dev/null
 
 generate_site() {
-  rm -rf "${DIR}/_site"
-
   bfgdata.pl
 }
+
+rm -rf "${DIR}/_site"
+
+cp -Rvp images _site
 
 generate_site
 
