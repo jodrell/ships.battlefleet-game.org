@@ -44,15 +44,27 @@
   {% assign height = 14.8 %}
   {% assign column_width = 4 %}
 
-  <div style="width:{{ width }}cm;height:{{ height }};margin:auto;padding:0.5cm;overflow:hidden">
+  <div id="printable-card" style="width:{{ width }}cm;height:{{ height }};margin:auto;padding:0.5cm;overflow:hidden;font-size:16px">
 
-    <div style="line-height:1;font-size:7.5mm;font-weight:bold;font-family:MachineItcDEE;text-transform:uppercase">{{ ship.nm }}</div>
+    <div style="line-height:1;font-size:175%;font-weight:bold;font-family:MachineItcDEE;text-transform:uppercase">{{ ship.nm }}</div>
 
     <div style="display:flex; font-size:large;margin:0.25cm 0 0.25cm 0">
-      <div style="flex: 1 1 auto">{% if is_unique %}&nbsp;{% else %}Name:{% endif %}</div>
-      <div style="flex: 0 0 3cm;text-align">Ld:</div>
-      <div style="flex: 0 0 auto;text-align:right;color:#eee">{{ ship.bp }}&nbsp;</div>
-      <div style="flex: 0 0 auto;text-align:left">pts</div>
+      <div style="flex: 1 1 auto">
+        {%- if ship.hp < 2 %}
+          &nbsp;
+        {%- else -%}
+          {%- if is_unique -%}
+            &nbsp;
+          {%- else -%}
+            Name:
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+      <div style="flex: 0 0 3cm;text-align">Leadership:</div>
+      {%- if ship.bp > 0 -%}
+        <div style="flex: 0 0 auto;text-align:right;color:#eee">{{ ship.bp }}&nbsp;</div>
+        <div style="flex: 0 0 auto;text-align:left">pts</div>
+      {%- endif -%}
     </div>
 
     <div style="display:flex">
@@ -120,22 +132,50 @@
     {% endif %}
 
     {% if has_sr %}
-      <div style="font-size:small;margin:0.25cm 0 0 0">
+      <div style="font-size:75%;margin:0.25cm 0 0 0">
         <strong>Special:</strong> {{ ship.sr }}
       </div>
     {% endif %}
 
     {% if has_op %}
-      <div style="font-size:small;margin:0.25cm 0 0 0">
+      <div style="font-size:75%;margin:0.25cm 0 0 0">
         <strong>Options</strong>: {{ ship.op }}
       </div>
     {% endif %}
 
-    <div style="margin-top:1em;text-align:center;font-style:italic;color:silver;font-size:x-small">
+    <div style="margin-top:1em;text-align:center;font-style:italic;color:silver;font-size:50%">
     	Printed from https://ships.battlefleet-game.org &middot;
     	Brought to you by 𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤
     </div>
   </div>
   <script src="//analytics.tau.uk.com"></script>
+  <script>
+    // Source - https://stackoverflow.com/a/78161027
+    // Posted by Muttley, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-10-26, License - CC BY-SA 4.0
+    function px2cm(px) {
+      var n = 3; // use 3 digits after decimal point (1mm resolution)
+      var cpi = 2.54; // centimeters per inch
+      var dpi = 96; // dots per inch
+      var ppd = 1; // window.devicePixelRatio; // pixels per dot
+      return (px * cpi / (dpi * ppd)).toFixed(n);
+    }
+
+    window.addEventListener('beforeprint', (event) => {
+      const max_height = {{ height }} - 0.1;
+
+      const div = document.getElementById("printable-card");
+
+      if (px2cm(div.scrollHeight) > max_height) {
+        while (px2cm(div.scrollHeight) > max_height) {
+          var size = parseInt(div.style.getPropertyValue("font-size").replace(/px$/, ""));
+
+          size -= 0.1;
+
+          div.style.setProperty("font-size", size + "px");
+        }
+      }
+    });
+  </script>
 </body>
 </html>
