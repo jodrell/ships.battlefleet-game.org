@@ -2,7 +2,7 @@
 # ABSTRACT: Generate static Battlefleet Gothic: Remastered ship profile HTML
 # pages using data from The_MonkeyKing's Gothic Fleet Registry. 
 use Cwd qw(getcwd abs_path);
-use Data::Mirror qw(mirror_str);
+use Data::Mirror qw(mirror_json);
 use File::Basename qw(dirname basename);
 use File::Copy::Recursive qw(rcopy);
 use File::Glob qw(:bsd_glob);
@@ -10,7 +10,6 @@ use File::Path qw(make_path remove_tree);
 use File::Spec;
 use File::Temp qw(tempdir);
 use Getopt::Long;
-use HTML5::DOM;
 use Image::Size;
 use JSON::XS;
 use Lingua::EN::Titlecase;
@@ -72,12 +71,7 @@ my $c_tpl   = Template::Liquid->parse(read_file(File::Spec->catfile(dirname(abs_
 $dir = abs_path($dir || File::Spec->catdir(dirname(__FILE__), q{_site}));
 
 say STDERR q{mirroring ship data...};
-my $html = mirror_str(q{https://bfgtools.kuldare.com/});
-
-say STDERR q{extracting ship data...};
-my $doc  = HTML5::DOM->new->parse($html);
-my $json = $doc->getElementById(q{bfgdata})->textContent;
-my $data = JSON::XS->new->utf8->decode($json);
+my $data = mirror_json(q{https://bfgtools.kuldare.com/bfg_data.json});
 
 printf(STDERR qq{files will be written to '%s'\n}, $dir);
 

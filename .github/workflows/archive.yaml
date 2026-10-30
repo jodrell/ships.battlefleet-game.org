@@ -22,7 +22,7 @@ jobs:
 
       - run: apt -qqq install nodejs zip gh
 
-      - run: cpanm -qn Data::Mirror LWP::Protocol::https HTML5::DOM Image::Size Lingua::EN::Titlecase Template::Liquid File::Copy::Recursive
+      - run: cpanm -qn Data::Mirror LWP::Protocol::https Image::Size Lingua::EN::Titlecase Template::Liquid File::Copy::Recursive
 
       - run: cp -Rvp images _site
 
