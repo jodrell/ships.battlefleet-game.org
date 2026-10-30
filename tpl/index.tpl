@@ -19,6 +19,7 @@
       the <em>Battlefleet Gothic: Remastered</em> Fleets Book. These pages are
       built using images taken from the PDF and statistical data taken from the
       <a href="https://bfgtools.kuldare.com/">Gothic Fleet Registry</a>.</p>
+    <p>To report an issue, use the <a href="https://github.com/jodrell/ships.battlefleet-game.org/issues/new">GitHub issues page</a>.</p>
   </aside>
 
   <nav>
