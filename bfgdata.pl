@@ -3,6 +3,7 @@
 # pages using data from The_MonkeyKing's Gothic Fleet Registry. 
 use Cwd qw(getcwd abs_path);
 use Data::Mirror qw(mirror_json);
+use DateTime;
 use File::Basename qw(dirname basename);
 use File::Copy::Recursive qw(rcopy);
 use File::Glob qw(:bsd_glob);
@@ -17,8 +18,10 @@ use List::Util qw(max);
 use Pod::Usage;
 use POSIX;
 use Template::Liquid;
-use vars qw(@TYPES %TYPENAMES %ORDER);
+use vars qw($NOW @TYPES %TYPENAMES %ORDER);
 use common::sense;
+
+$NOW = DateTime->now->ymd;
 
 @TYPES = qw(Battleship Grand_Cruiser Cruiser Escort Defence Ground);
 
@@ -259,6 +262,7 @@ sub generate_page {
     }
 
     my %args = (
+        updated         => $NOW,
         ship            => $ship,
         has_image       => (-e filename($dir, $ship, q{png})),
         has_armament    => scalar(@{$ship->{aw}} > 0),
@@ -358,6 +362,7 @@ sub generate_index {
     write_file(
         File::Spec->catfile($dir, q{index.html}),
         $i_tpl->render(
+            updated => $NOW,
             fleets  => [sort { $ORDER{$a->{name}} <=> $ORDER{$b->{name}} } values(%{$fleets})],
         )
     );
