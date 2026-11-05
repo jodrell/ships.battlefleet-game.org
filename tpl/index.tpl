@@ -67,6 +67,7 @@
 </main>
 
 <footer><span>
+  Last updated: {{ updated }} &middot;
   <a href="https://github.com/jodrell/ships.battlefleet-game.org">GitHub</a>
   &middot;
   Brought to you by <a href="https://jodrell.org">𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤</a>

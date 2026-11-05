@@ -144,6 +144,7 @@
     {% endif %}
 
     <div style="margin-top:1em;text-align:center;font-style:italic;color:silver;font-size:50%">
+      Last updated: {{ updated }} &middot;
     	Printed from https://ships.battlefleet-game.org &middot;
     	Brought to you by 𝔍𝔬𝔡𝔯𝔢𝔩𝔩.𝔬𝔯𝔤
     </div>

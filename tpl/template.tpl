@@ -83,6 +83,8 @@
 </main>
 
 <footer><span>
+  Last updated: {{ updated }}
+  &middot;
   <a href="{{ card }}">Printable</a>
   &middot;
   <a href="../">Index</a>
