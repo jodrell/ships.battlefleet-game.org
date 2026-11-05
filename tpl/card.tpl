@@ -78,25 +78,9 @@
         <div style="padding:1mm;background-color:#eee">{{ ship.tn }}</div>
       </div>
 
-      <div style="flex: 1 1 auto;padding:0.25cm">
+      <div style="flex: 1 1 auto;padding:0 0.25cm">
         {% if has_image %}
           <img src="{{ image }}" style="display:block;max-width:100%;max-height:10em;margin:0 auto 0.25cm auto">
-        {% endif %}
-
-        {% if ship.hp > 1 %}
-
-          {% assign range = (1..ship.hp) %}
-
-          <table style="margin:auto"><tbody><tr>
-            {% for i in range %}
-              <td style="border:1px solid black;width:8mm;height:8mm;padding:0;vertical-align:middle;text-align:center;color:silver">
-                {{ i }}
-              </td>
-              {% if i == crippled_at %}
-                <td>|</td>
-              {% endif %}
-            {% endfor %}
-          </tr></tbody></table>
         {% endif %}
       </div>
 
@@ -109,6 +93,41 @@
         <div style="padding:1mm;background-color:#eee">{{ ship.tu }}</div>
       </div>
     </div>
+
+    {% if ship.hp > 1 %}
+
+      {% assign range = (1..ship.hp) %}
+
+      <div style="text-align:center">
+        {%- for i in range -%}
+
+          {%- if i == ship.hp %}
+            {%- assign margin = "2mm 0 0 0" -%}
+          {%- else -%}
+            {%- assign margin = "2mm 2mm 0 0" -%}
+          {%- endif -%}
+
+          {%- if i >= crippled_at -%}
+            {% assign border = "1px dotted black" %}
+          {%- else -%}
+            {% assign border = "1px solid black" %}
+          {%- endif -%}
+
+          <div style="
+            margin:{{ margin }};
+            border:{{ border }};
+            display:inline-flex;
+            justify-content:center;
+            align-items:center;
+            width:8mm;
+            height:8mm;
+            padding:0;
+            padding:0;
+            text-align:center;
+            color:silver">{{- i -}}</div>
+        {%- endfor -%}
+      </div>
+    {% endif %}
 
     {% if has_armament %}
       <table style="margin-top:0.125cm;width:100%;border-collapse: collapse">
