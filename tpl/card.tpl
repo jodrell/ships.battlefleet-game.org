@@ -196,6 +196,8 @@
         }
       }
     });
+
+    if (new URL(window.location).searchParams.has("print")) window.print();
   </script>
 </body>
 </html>

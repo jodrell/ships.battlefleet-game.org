@@ -95,5 +95,12 @@
 </span></footer>
 
 <script src="//analytics.tau.uk.com"></script>
+
+<script>
+  window.addEventListener('beforeprint', (e) => {
+    e.preventDefault();
+    window.location='{{ card }}?print=1';
+  });
+</script>
 </body>
 </html>
