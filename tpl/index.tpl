@@ -16,21 +16,20 @@
   </header>
   <aside>
     <p>This site contains mobile-friendly HTML profile pages for all the ships in
-      the <em>Battlefleet Gothic: Remastered</em> Fleets Book. These pages are
+      the <a target="_new" href="https://linktr.ee/bfg.remastered"><em>Battlefleet Gothic: Remastered</em></a> Fleets Book. These pages are
       built using images taken from the PDF and statistical data taken from the
-      <a href="https://bfgtools.kuldare.com/">Gothic Fleet Registry</a>.</p>
+      <a target="_new" href="https://bfgtools.kuldare.com/">Gothic Fleet Registry</a>.</p>
     <p>To report an issue, use the <a href="https://github.com/jodrell/ships.battlefleet-game.org/issues/new">GitHub issues page</a>.</p>
   </aside>
 
   <nav>
-    <ul>
-      <li>Jump to:</li>
-      {% for fleet in fleets %}
-        <li>
-          <a href="#{{ fleet.slug }}">{{ fleet.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+      <p style="text-align:center"><label>Jump to:
+        <select style="font-size:large" onchange="window.location='#' + this.value">
+        {% for fleet in fleets %}
+          <option value="{{ fleet.slug }}">{{ fleet.name }}</option>
+        {% endfor %}
+        </select>
+    </label></p>
   </nav>
 
   {% for fleet in fleets %}
@@ -54,6 +53,7 @@
                     {% endif %}
                   </td>
                   <td class="index-ship-link"><a href="{{ ship.href }}"><img class="link-icon" src="assets/display-solid-full.svg" alt="[Profile]"></a></td>
+                  <td class="index-ship-link"><a href="{{ ship.terminal_href }}"><img class="link-icon" src="assets/gamepad-solid-full.svg" alt="[Terminal]"></a></td>
                   <td class="index-ship-link"><a href="{{ ship.card_href }}" title="Open printable version"><img class="link-icon" src="assets/print-solid-full.svg" alt="[Printable]"></a></td>
                 </tr>
               {% endfor %}
