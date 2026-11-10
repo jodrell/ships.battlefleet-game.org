@@ -70,6 +70,7 @@ my $tc      = Lingua::EN::Titlecase->new;
 my $tpl     = Template::Liquid->parse(read_file(File::Spec->catfile(dirname(abs_path(__FILE__)), qw(tpl template.tpl))));
 my $i_tpl   = Template::Liquid->parse(read_file(File::Spec->catfile(dirname(abs_path(__FILE__)), qw(tpl index.tpl))));
 my $c_tpl   = Template::Liquid->parse(read_file(File::Spec->catfile(dirname(abs_path(__FILE__)), qw(tpl card.tpl))));
+my $t_tpl   = Template::Liquid->parse(read_file(File::Spec->catfile(dirname(abs_path(__FILE__)), qw(tpl terminal.tpl))));
 
 $dir = abs_path($dir || File::Spec->catdir(dirname(__FILE__), q{_site}));
 
@@ -277,6 +278,7 @@ sub generate_page {
 
     write_file(filename($dir, $ship, q{html}), $tpl->render(%args));
     write_file(filename($dir, $ship, q{card.html}), $c_tpl->render(%args));
+    write_file(filename($dir, $ship, q{terminal.html}), $t_tpl->render(%args));
 }
 
 #
@@ -339,10 +341,11 @@ sub generate_index {
         }
 
         push(@{$fleets->{$ship->{fl}}->{ships}->{$ship->{_ty}}}, {
-            name        => $tc->title($ship->{nm}),
-            href        => filename(q{.}, $ship, q{html}),
-            card_href   => filename(q{.}, $ship, q{card.html}),
-            bp          => $ship->{bp},
+            name            => $tc->title($ship->{nm}),
+            href            => filename(q{.}, $ship, q{html}),
+            card_href       => filename(q{.}, $ship, q{card.html}),
+            terminal_href   => filename(q{.}, $ship, q{terminal.html}),
+            bp              => $ship->{bp},
         });
     }
 

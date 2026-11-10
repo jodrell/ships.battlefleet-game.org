@@ -53,7 +53,7 @@
                     {% endif %}
                   </td>
                   <td class="index-ship-link"><a href="{{ ship.href }}"><img class="link-icon" src="assets/display-solid-full.svg" alt="[Profile]"></a></td>
-                  <td class="index-ship-link"><a href="{{ ship.terminal_href }}"><img class="link-icon" src="assets/gamepad-solid-full.svg" alt="[Terminal]"></a></td>
+                  <!-- <td class="index-ship-link"><a href="{{ ship.terminal_href }}"><img class="link-icon" src="assets/gamepad-solid-full.svg" alt="[Terminal]"></a></td> -->
                   <td class="index-ship-link"><a href="{{ ship.card_href }}" title="Open printable version"><img class="link-icon" src="assets/print-solid-full.svg" alt="[Printable]"></a></td>
                 </tr>
               {% endfor %}
